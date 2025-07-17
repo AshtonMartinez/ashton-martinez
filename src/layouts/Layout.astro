@@ -1,14 +1,28 @@
+---
+import Nav from "../components/Nav.astro"
+import Footer from "../components/Footer.astro"
+
+import "../styles/global.css"
+---
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/ashton-logo-medium.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 		<meta name="generator" content={Astro.generator} />
 		<title>Ashton Martinez</title>
-		<link rel="stylesheet" href="/src/styles/global.css" />
 	</head>
-	<body class="bg-gray-950">
+<style>
+  body {
+	font-family: 'Source Code Pro', monospace;
+  }
+</style>
+<body class="bg-gray-900 flex flex-col min-h-screen justify-between">
+	<Nav />
 		<slot />
+	<Footer />
 	</body>
 </html>
