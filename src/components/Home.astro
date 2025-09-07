@@ -1,12 +1,11 @@
 ---
-import Nav from "../components/Nav.astro";
 import Technologies from "../components/Technologies.astro";
 import Hireme from "../components/Hireme.astro";
+import ProjectsSection from "./ProjectsSection.astro";
 ---
 
 <div class="flex flex-col gap-10">
-
-	<div class="flex flex-col max-w-2/3 py-30 mx-auto gap-9">
+	<div class="flex flex-col max-w-screen-2xl py-30 mx-auto gap-9">
 		<h2 class="text-8xl font-semibold text-white">Ashton Martinez</h2>
 		<h2 class="text-8xl font-semibold text-gray-400">
 			Full-Stack Developer
@@ -25,4 +24,7 @@ import Hireme from "../components/Hireme.astro";
 
 	<Technologies />
 	<Hireme />
+	<div id="projects">
+		<ProjectsSection />
+	</div>
 </div>

@@ -1,0 +1,17 @@
+---
+import BlockLeaf from "./BlockLeaf.astro";
+const { block } = Astro.props;
+---
+
+{block.type !== "container" && <BlockLeaf block={block} />}
+
+{block.type === "container" && (
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+    <div class="flex justify-center">
+      <BlockLeaf block={block.blocks[0]} />
+    </div>
+    <div class="flex justify-center">
+      <BlockLeaf block={block.blocks[1]} />
+    </div>
+  </div>
+)}

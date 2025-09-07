@@ -1,0 +1,34 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import ContentBlock from "../../components/ContentBlock.astro";
+
+export async function getStaticPaths() {
+  const projects = await getCollection("projects");
+  return projects.map((project) => ({
+    params: { slug: project.data.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout>
+  <div class="text-white max-w-screen-2xl mx-auto px-4 py-12">
+    <h1 class="text-5xl font-bold mb-8">
+      <a
+        class="hover:text-emerald-600"
+        href={project.data.websiteLink}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {project.data.title}
+      </a>
+    </h1>
+
+    <div class="space-y-12">
+      {project.data.content.map((block) => <ContentBlock block={block} />)}
+    </div>
+  </div>
+</Layout>

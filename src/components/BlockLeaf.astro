@@ -1,0 +1,100 @@
+---
+const { block } = Astro.props;
+
+// Simple guard: this file only handles non-container blocks
+if (block.type === "container") {
+    throw new Error("BlockLeaf cannot render container blocks");
+}
+---
+
+{
+    block.type === "text" && (
+        <div class="space-y-4">
+            {block.subheading && (
+                <h2 class="text-2xl font-semibold">{block.subheading}</h2>
+            )}
+            {block.paragraphs.map((p: unknown) => (
+                <p class="text-lg leading-relaxed text-gray-400">{p}</p>
+            ))}
+        </div>
+    )
+}
+
+{
+    block.type === "image" && (
+        <figure class="space-y-2">
+            <img
+                src={"/" + block.src}
+                alt={block.alt || "Project image"}
+                class="w-full h-auto rounded-lg shadow-md object-cover"
+            />
+            {block.caption && (
+                <figcaption class="text-sm text-gray-500">
+                    {block.caption}
+                </figcaption>
+            )}
+        </figure>
+    )
+}
+
+{
+    block.type === "gallery" && (
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {block.images.map((img: { src: string; alt: any }) => (
+                <img
+                    src={"/" + img.src}
+                    alt={img.alt || "Gallery image"}
+                    class="w-full h-auto rounded-md object-cover"
+                />
+            ))}
+        </div>
+    )
+}
+
+{
+    block.type === "code" && (
+        <div class="bg-slate-950 rounded-lg overflow-hidden shadow-lg">
+            {/* Header bar with traffic-light buttons */}
+            <div class="flex items-center px-3 py-2 bg-gray-800 border-b border-gray-700">
+                <span class="w-3 h-3 rounded-full bg-red-500 mr-2" />
+                <span class="w-3 h-3 rounded-full bg-yellow-500 mr-2" />
+                <span class="w-3 h-3 rounded-full bg-green-500" />
+                <span class="ml-3 text-xs text-gray-400 font-mono">
+                    {block.language.toUpperCase()}
+                </span>
+            </div>
+
+            {/* Code area */}
+            <pre class="p-4 overflow-x-auto text-sm leading-relaxed text-gray-100">
+                <code class={`language-${block.language}`}>{block.code}</code>
+            </pre>
+        </div>
+    )
+}
+
+{
+    block.type === "quote" && (
+        <blockquote class="border-l-4 border-gray-500 pl-4 italic text-lg text-gray-300">
+            {block.text}
+            {block.author && (
+                <footer class="mt-2 text-gray-500">— {block.author}</footer>
+            )}
+        </blockquote>
+    )
+}
+
+{
+    block.type === "video" && (
+        <div class="w-full aspect-[16/9]">
+            <iframe
+                src={block.url}
+                title={block.caption || "Project video"}
+                class="w-full h-full rounded-lg shadow-lg"
+                allowfullscreen
+            />
+            {block.caption && (
+                <p class="mt-2 text-sm text-gray-500">{block.caption}</p>
+            )}
+        </div>
+    )
+}
